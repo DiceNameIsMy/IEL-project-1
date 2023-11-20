@@ -1,0 +1,153 @@
+\section{Příklad 1}
+% Jako parametr zadejte skupinu (A-H)
+\prvniZadani{A}
+
+\makebox[\linewidth]{\rule{\textwidth}{0.5pt}}
+\subsection{Řešení}
+
+Prvním krokem je zjednodušit rezistory $R_7$ a $R_8$, protože jsou zapojeny sériově, paralelní rezistory $R_5$ a $R_6$, a zároveň i zdroje napětí $U_1$ a $U_2$:
+
+\begin{gather*}
+    R_{78} = R_6 + R_8 = 310 + 190 = 500 \Omega \\
+    R_{56} = \frac{1}{\frac{1}{R_{5}} + \frac{1}{R_{6}}} = \frac{1}{\frac{1}{360} + \frac{1}{750}} = 243.2432 \Omega \\
+    U_{12} = U_{1} + U_{2} = 80 + 120 = 200 \Vo
+\end{gather*}
+
+\begin{center}
+\begin{circuitikz}[american voltages, european resistors]
+\draw 
+    (0,4) to[V_=$U_{12}$] (0,0)
+
+    (0,4) to (2,4)
+
+    (2,4) to[R=$R_1$, *-*] (5,4)
+    (2,4) to (2,2)
+    (2,2) to[R=$R_2$, -*] (5,2)
+
+    (5,4.3) node {A}
+    (5,4) to[R=$R_3$, *-*] (5,2)
+
+    (5,2) to[R=$R_4$, *-*] (8,2)
+    (8.3,2) node {C}
+
+    (5,1.7) node {B}
+    (5,4) to (8,4)
+    (8,4) to[R=$R_{56}$, -*] (8,2)
+
+    (8,0) to (8,2)
+    (0,0) to[R=$R_{78}$] (8,0)
+;
+\end{circuitikz}
+\end{center}
+
+Druhým krokem můžeme provést delta-wye transformace:
+
+\begin{gather*}
+    R_{a} = \frac{R_3 R_4}{R_3 + R_4 + R_{56}} = \frac{410 * 130}{410 + 130 + 500} = 127.3292 \Omega \\
+    R_{b} = \frac{R_3 R_{56}}{R_3 + R_4 + R_{56}} = \frac{410 * 500}{410 + 130 + 500} = 65.0504 \Omega \\
+    R_{c} = \frac{R_4 R_{56}}{R_3 + R_4 + R_{56}} = \frac{500 * 130}{410 + 650 + 500} = 40.3727 \Omega
+\end{gather*}
+
+\begin{center}
+\begin{circuitikz}[american voltages, european resistors]
+\draw
+    (0,4) to[V_=$U_{12}$] (0,0)
+
+    (0,4) to (2,4)
+
+    (2,4) to[R=$R_1$, *-*] (5,4)
+    (2,4) to (2,2)
+    (2,2) to[R=$R_2$, -*] (5,2)
+
+    (5,4.3) node {A}
+    (5,4) to[R=$R_{a}$] (8,4)
+
+    (8.3,0) node {C}
+
+    (8,2) to (8,4)
+
+    (5,2) to[R=$R_{b}$, *-*] (8,2)
+    (5,1.7) node {B}
+
+    (8,2) to[R=$R_{c}$, *-*] (8,0)
+
+    (0,0) to[R=$R_{78}$] (8,0)
+;
+\end{circuitikz}
+\end{center}
+
+Zatim lze zjednodušit rezistory takhle:
+
+\begin{gather*}
+    R_{1a} = R_{1} + R_{a} = 350 + 127.3292 = 477.3291 \Omega \\
+    R_{2b} = R_{2} + R_{b} = 650 + 65.0504 = 718.0503 \Omega \\
+\end{gather*}
+
+\begin{center}
+\begin{circuitikz}[american voltages, european resistors]
+\draw
+    (0,4) to[V_=$U_{12}$] (0,0)
+
+    (0,4) to (2,4)
+    (2,4) to[R=$R_{1a}$, *-] (5,4)
+    (5,4) to (5,2)
+
+    (2,4) to (2,2)
+    (2,2) to[R=$R_{2b}$, -*] (5,2)
+
+    (5,2) to[R=$R_{c}$, *-*] (5,0)
+
+    (0,0) to[R=$R_{78}$] (5,0)
+;
+\end{circuitikz}
+\end{center}
+
+\begin{gather*}
+    R_{1a2b} = \frac{1}{\frac{1}{R_{1a}} + \frac{1}{R_{2b}}} = \frac{1}{\frac{1}{477.3291} + \frac{1}{718.0503}} = 286.7260 \Omega \\
+\end{gather*}
+
+\begin{center}
+\begin{circuitikz}[american voltages, european resistors]
+\draw
+    (0,3) to[V_=$U_{12}$] (0,0)
+
+    (0,3) to[R=$R_{1a2b}$] (3,3)
+
+    (3,3) to[R=$R_{c}$] (3,0)
+
+    (0,0) to[R=$R_{78}$] (3,0)
+;
+\end{circuitikz}
+\end{center}
+
+\begin{gather*}
+    R_{EKV} = R_{1a2b} + R_{c} + R_{78} = 286.7260 + 40.3727 + 500 = 827.0986 \Omega \\
+\end{gather*}
+
+\begin{center}
+\begin{circuitikz}[american voltages, european resistors]
+    \draw
+        (0,3) to[V_=$U_{12}$] (0,0)
+        (0,3) to (3,3)
+        (3,3) to[R=$R_{EKV}$] (3,0)
+        (0,0) to (3,0)
+    ;
+\end{circuitikz}
+\end{center}
+
+S timhle obvodem se dá vypočist celý proud:
+
+\begin{gather*}
+    U = U_{12} = 200 \Vo \\
+    I = \frac{U}{R_{EKV}} = \frac{200}{827.0987} = 0.2418 \Am
+\end{gather*}
+
+A teď můžeme vypočist $I_{R2}$ a $U_{R2}$
+
+\begin{gather*}
+    U_{R1a2b} = I * R_{1a2b} = 0.2418 * 286.7260 = 69.3329 \Vo \\
+    U_{R2b} = U_{R1a2b} = 69.3329 \Vo \\
+    U_{R2} = \frac{U_{R2b} R_{2}}{R2 + Rb} = \frac{69.3329 * 120}{120 + 65.0504} = 62.7622 \Vo \\
+    I_{R2} = \frac{U_{R2}}{R_{2}} = \frac{62.7622}{650} = 0.2418 \Am
+\end{gather*}
+
