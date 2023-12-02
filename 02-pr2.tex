@@ -1,3 +1,202 @@
 \section{Příklad 2}
 % Jako parametr zadejte skupinu (A-H)
 \druhyZadani{D}
+
+\makebox[\linewidth]{\rule{\textwidth}{0.5pt}}
+\subsection{Řešení}
+
+Podle Theveninovy vety nahradime zdroj napeti $U$ za drat, vypneme resistor $R_6$ a vypocitame odpor mezi body $A$ a $B$:
+
+\begin{center}
+\begin{circuitikz}[american voltages, european resistors]
+\draw
+    (0,0) to (0,4)
+    (0,4) to[R=$R_1$] (2,4)
+        (2,4) to[R=$R_2$, *-] (2,2)
+        (2,2) to[R=$R_3$, -*] (2,0)
+    (2,4) to (4,4)
+    (4,4) to[R=$R_4$] (4,2)
+    (4,2) to[R=$R_5$, *-*] (4,0)
+        (4,2) to[short, -*] (6,2)
+        (6.3,2) node {A}
+        (4,0) to[short, -*] (6,0)
+        (6.3,0) node {B}
+    (0,0) to (4, 0)
+;
+\end{circuitikz}
+\end{center}
+
+Zjednodušime obvod:
+
+\begin{gather*}
+    R_{23} = R_{2} + R_{3} = 200 + 660 = 860 \Omega \\
+\end{gather*}
+
+\begin{center}
+\begin{circuitikz}[american voltages, european resistors]
+\draw
+    (0,0) to (0,4)
+    (0,4) to[R=$R_1$] (2,4)
+        (2,4) to[R=$R_{23}$, *-*] (2,0)
+    (2,4) to (4,4)
+    (4,4) to[R=$R_4$] (4,2)
+    (4,2) to[R=$R_5$, *-*] (4,0)
+        (4,2) to[short, -*] (6,2)
+        (6.3,2) node {A}
+        (4,0) to[short, -*] (6,0)
+        (6.3,0) node {B}
+    (0,0) to (4, 0)
+;
+\end{circuitikz}
+\end{center}
+
+\begin{gather*}
+    R_{123} = \frac{1}{\frac{1}{R_{1}} + \frac{1}{R_{23}}} = \frac{1}{\frac{1}{200} + \frac{1}{860}} = 162.2642 \Omega \\
+\end{gather*}
+
+\begin{center}
+\begin{circuitikz}[american voltages, european resistors]
+    \draw
+        (2,4) to[R=$R_{123}$] (2,0)
+        (2,4) to (4,4)
+        (4,4) to[R=$R_4$] (4,2)
+        (4,2) to[R=$R_5$, *-*] (4,0)
+            (4,2) to[short, -*] (6,2)
+            (6.3,2) node {A}
+            (4,0) to[short, -*] (6,0)
+            (6.3,0) node {B}
+        (2,0) to (4, 0)
+;
+\end{circuitikz}
+\end{center}
+
+\begin{gather*}
+    R_{1234} = R_{123} + R_{4} = 162.2642 + 200 = 362.2642 \Omega \\
+\end{gather*}
+
+\begin{center}
+\begin{circuitikz}[american voltages, european resistors]
+\draw
+    (0,2) to[R=$R_{1234}$] (0,0)
+    (0,2) to (2,2)
+    (2,2) to[R=$R_5$, *-*] (2,0)
+        (2,2) to[short, -*] (4,2)
+        (4.3,2) node {A}
+        (2,0) to[short, -*] (4,0)
+        (4.3,0) node {B}
+    (0,0) to (2, 0)
+;
+\end{circuitikz}
+\end{center}
+
+\begin{gather*}
+    R_{th} = \frac{1}{\frac{1}{R_{1234}} + \frac{1}{R_{5}}} = \frac{1}{\frac{1}{362.2642} + \frac{1}{550}} = 218.4074 \Omega \\
+\end{gather*}
+
+\begin{center}
+\begin{circuitikz}[american voltages, european resistors]
+\draw
+    (2,2) to[R=$R_{th}$] (2,0)
+    (2,2) to[short, -*] (4,2)
+    (4.3,2) node {A}
+    (2,0) to[short, -*] (4,0)
+    (4.3,0) node {B}
+;
+\end{circuitikz}
+\end{center}
+
+Ted mame zjistit $U_{th}$. Vratime zdroj napeti at jsme ho vypocitame.
+
+\begin{center}
+\begin{circuitikz}[american voltages, european resistors]
+\draw
+    (0,4) to[V=$U$] (0,0)
+    (0,2) to (0,4)
+    (0,4) to[R=$R_1$] (2,4)
+        (2,4) to[R=$R_{23}$, *-*] (2,0)
+    (2,4) to (4,4)
+    (4,4) to[R=$R_4$] (4,2)
+    (4,2) to[R=$R_5$] (4,0)
+    (0,0) to (4, 0)
+;
+\end{circuitikz}
+\end{center}
+
+\begin{gather*}
+    R_{45} = R_{4} + R_{5} = 200 + 550 = 750 \Omega \\
+\end{gather*}
+
+\begin{center}
+\begin{circuitikz}[american voltages, european resistors]
+\draw
+    (0,4) to[V=$U$] (0,0)
+    (0,2) to (0,4)
+    (0,4) to[R=$R_1$] (2,4)
+        (2,4) to[R=$R_{23}$, *-*] (2,0)
+    (2,4) to (4,4)
+    (4,4) to[R=$R_{45}$] (4,0)
+    (0,0) to (4, 0)
+;
+\end{circuitikz}
+\end{center}
+
+\begin{gather*}
+    R_{2345} = \frac{1}{\frac{1}{R_{23}} + \frac{1}{R_{45}}} = \frac{1}{\frac{1}{860} + \frac{1}{750}} = 400.6211 \Omega \\
+\end{gather*}
+
+\begin{center}
+\begin{circuitikz}[american voltages, european resistors]
+\draw
+    (0,2) to[V=$U$] (0,0)
+    (0,2) to[R=$R_1$] (2,2)
+    (2,2) to[R=$R_{2345}$] (2,0)
+    (0,0) to (2, 0)
+;
+\end{circuitikz}
+\end{center}
+
+\begin{gather*}
+    R_{12345} = R_{1} + R_{2345} = 200 + 400.6211 = 600.6211 \Omega \\
+\end{gather*}
+
+\begin{center}
+\begin{circuitikz}[american voltages, european resistors]
+\draw
+    (0,2) to[V=$U$] (0,0)
+    (0,2) to (2,2)
+    (2,2) to[R=$R_{12345}$] (2,0)
+    (0,0) to (2, 0);
+\end{circuitikz}
+\end{center}
+
+Po Zjednodušeni se da vypocist Theveninovy proud:
+
+\begin{gather*}
+    I = \frac{U}{R_{12345}} = \frac{150}{600.6211} = 0.2497 \Am \\
+    U_{R2345} = I * R_{2345} = 0.2497 * 400.6211 = 100.0517 \Omega \\
+    U_{R45} = U_{R2345} \\
+    I_{R45} = \frac{U_{R45}}{R_{45}} = \frac{100.0517}{750} = 0.1334 \Am \\
+    I_{x} = I_{R45} \\
+    U_{th} = I_{x} * R_{5} = 0.1334 * 550 = 73.3713 \Vo
+\end{gather*}
+
+Podle Theveninovy vety dostaneme takyto ekvivalentni obvod:
+
+\begin{center}
+\begin{circuitikz}[american voltages, european resistors]
+\draw
+    (0,2) to[V=$U_{th}$] (0,0)
+    (0,2) to[R=$R_{th}$] (2,2)
+    (2,2) to[R=$R_{6}$] (2,0)
+    (0,0) to (2, 0);
+\end{circuitikz}
+\end{center}
+
+S kterym se da jednoduse vypocist $U_{R6}$ a $I_{R6}$:
+
+\begin{gather*}
+    R_{ekv} = R_{1} + R_{th} = 200 + 218.4074 = 418.4074 \Omega \\
+    I = \frac{U}{R_{ekv}} = \frac{150}{418.4074} = 0.1992 \Am \\
+    I_{R6} = I = 0.1992 \Am \\
+    U_{R6} = I * R_{6} = 0.1992 * 150 = 29.8737 \Vo
+\end{gather*}
