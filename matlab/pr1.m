@@ -38,3 +38,7 @@ UR1a2b = I * R1a2b;
 UR2b = UR1a2b;
 UR2 = (UR2b * R2)/(R2 + Rb);
 IR2 = UR2 / R2;
+
+disp('Results:');
+fprintf("UR2: %.4f V\n", UR2);
+fprintf("IR2: %.4f mA\n", IR2 * 10^3);
