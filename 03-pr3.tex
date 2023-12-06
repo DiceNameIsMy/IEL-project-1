@@ -1,3 +1,85 @@
 \section{Příklad 3}
 % Jako parametr zadejte skupinu (A-H)
 \tretiZadani{D}
+
+\makebox[\linewidth]{\rule{\textwidth}{0.5pt}}
+\subsection{Řešení}
+
+Prvnim krokem vyadrime napeti na uzlech pomoci druheho Kirchhoffův zákona:
+
+\begin{gather*}
+    U_{A}: \quad I_{1} + I_{R_2} - I_{R_1} = 0 \\
+    U_{B}: \quad I_{2} + I_{R_3} - I_{R_2} = 0 \\
+    U_{C}: \quad I_{R_5} - I_{2} - I_{R_3} - I_{R4} = 0 \\
+\end{gather*}
+
+Vyadrime proudy:
+
+\begin{gather*}
+    I_{R1} = \frac{U_{A}}{R_{1}} \\
+    I_{R2} = \frac{U_{B} - U_{A}}{R_{2}} \\
+    I_{R3} = \frac{U_{C} - U_{B}}{R_{3}} \\
+    I_{R4} = \frac{U_{C}}{R_{4}} \\
+    I_{R5} = \frac{U - U_{C}}{R_{5}}
+\end{gather*}
+
+Nasadime do uzlovych napeti:
+
+\begin{gather*}
+    U_{A}: \quad I_{1} + \frac{U_{B} - U_{A}}{R_{2}} - \frac{U_{A}}{R_{1}} = 0 \\
+    U_{B}: \quad I_{2} + \frac{U_{C} - U_{B}}{R_{3}} - \frac{U_{B} - U_{A}}{R_{2}} = 0 \\
+    U_{C}: \quad \frac{U - U_{C}}{R_{5}} - I_{2} - \frac{U_{C} - U_{B}}{R_{3}} - \frac{U_{C}}{R_{4}} = 0 \\
+\end{gather*}
+
+Nasadime zname hodnoty:
+
+\begin{gather*}
+    U_{A}: \quad \frac{6}{10} + \frac{U_{B} - U_{A}}{38} - \frac{U_{A}}{50} = 0 \\
+    U_{B}: \quad \frac{9}{10} + \frac{U_{C} - U_{B}}{48} - \frac{U_{B} - U_{A}}{38} = 0 \\
+    U_{C}: \quad \frac{U - U_{C}}{28} - \frac{9}{10} - \frac{U_{C} - U_{B}}{48} - \frac{U_{C}}{37} = 0
+\end{gather*}
+
+Dostali jsme soustavu tri rovnic s tremi neznamymi. Upravime koeficienty:
+
+\begin{gather*}
+    - \frac{22}{475} U_{A} + \frac{1}{38} U_{B} = - \frac{3}{5} \\
+    \frac{1}{38} U_{A} - \frac{43}{912} U_{B} + \frac{1}{48} U_{C} = - \frac{9}{10}  \\
+    \frac{1}{48} U_{B} + \frac{1039}{12432} U_{C} = - \frac{449}{140}
+\end{gather*}
+
+A nasadime do matice:
+
+\begin{gather*}
+    \begin{pmatrix}
+        -\frac{22}{475} & \frac{1}{38}    & 0 \\
+        \frac{1}{38}    & -\frac{43}{912} & \frac{1}{48} \\
+        0               & \frac{1}{48}    & \frac{1039}{12432}
+    \end{pmatrix}
+    \times
+    \begin{pmatrix}
+        U_{A} \\
+        U_{B} \\
+        U_{C}
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        - \frac{3}{5} \\
+        - \frac{9}{10}  \\
+        - \frac{449}{140}
+    \end{pmatrix}
+\end{gather*}
+
+Spočítáme hodnoty $U_{A}$, $U_{B}$ a $U_{C}$
+
+\begin{gather*}
+    U_{A} = \frac{275965}{4938} = 55.8859 \Vo \\
+    U_{B} = \frac{186556}{2469} = 75.5593 \Vo \\
+    U_{C} = \frac{706256}{12345} = 57.2098 \Vo
+\end{gather*}
+
+S tim se da vypocist $U_{R4}$ a $I_{R4}$:
+
+\begin{gather*}
+    U_{R4} = U_{C} = 57.2098 \Vo \\
+    I_{R4} = \frac{U_{R4}}{R4} = 1.5462 \Am
+\end{gather*}
