@@ -22,6 +22,7 @@ disp('Results:');
 fprintf('UR6 = %.4f V\n', UR6);
 fprintf('IR6 = %.4f A\n', IR6);
 
+
 function R_thevenin = thevenin_resistance(R1, R2, R3, R4, R5) 
     R23 = R2 + R3;
     R123 = (1/R1 + 1/R23)^-1;    
@@ -38,11 +39,14 @@ function U_thevenin = thevenin_voltage(U1, R1, R2, R3, R4, R5)
     R12345 = R1 + R2345;
     
     I = U1 / R12345;
-    U2345 = I * R2345;
-    U45 = U2345;
-    I45 = U45 / R45;
-    I5 = I45;
 
-    U5 = I5 * R5;
+    UR2345 = I * R2345;
+    UR45 = UR2345;
+
+    IR45 = UR45 / R45;
+    IR5 = IR45;
+
+    U5 = IR5 * R5;
+
     U_thevenin = U5;
 end
